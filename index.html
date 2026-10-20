@@ -223,7 +223,7 @@
       .photo img {
         display: none;
         width: 100%;
-        /* height: 100%; */
+        height: 100%;
         object-fit: cover;
       }
       .placeholder {
@@ -827,7 +827,7 @@
           line-height: 1.55;
         }
         .row {
-          grid-template-columns: minmax(83px, 15%) minmax(0, 1fr);
+          grid-template-columns: minmax(92px, 38%) minmax(0, 1fr);
           gap: 7px;
           margin: 7px 0;
           align-items: start;
@@ -975,49 +975,6 @@
           width: 100%;
           height: 100%;
           object-fit: cover;
-          margin-top: 10px;
-        }
-        .slideshow-photo {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          opacity: 0;
-          transition: opacity 0.7s ease-in-out;
-          pointer-events: none;
-        }
-
-        .slideshow-photo.active {
-          opacity: 1;
-          position: relative;
-        }
-
-        .portrait-frame {
-          position: relative;
-          overflow: hidden;
-        }
-
-        .portrait-frame img.slideshow-photo {
-          display: block;
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          opacity: 0;
-          visibility: hidden;
-          transition: opacity 0.6s ease;
-          pointer-events: none;
-        }
-
-        .portrait-frame img.slideshow-photo.active {
-          opacity: 1;
-          visibility: visible;
-        }
-
-        .portrait-frame img.slideshow-photo.active:first-child {
-          position: relative;
         }
       }
     </style>
@@ -1039,7 +996,7 @@
           <div class="photo">
             <img
               id="profilePhoto"
-              src="profile.jpeg"
+              src="photos/img3.jpg"
               alt="Profile photo"
               style="display: block"
             />
@@ -1120,11 +1077,10 @@
               <div class="row">
                 <span class="label">Business</span
                 ><span class="value" contenteditable="false"
-                  >: DK COVER HOUSE-RAJKOT (wholesaler of mobile cover and
-                  accessories)
+                  >: DK COVER HOUSE (wholesaler of mobile cover and accessories)
                   <br />
-                  <a href="https://coverspot.in/">coverspot.in</a> (personal web
-                  for online selling)
+                  <a href="coverspot.in">coverspot.in</a> (personal web for
+                  online selling)
                 </span>
               </div>
               <div class="row">
@@ -1174,8 +1130,7 @@
                 <span class="label">Siblings</span
                 ><span class="value" contenteditable="false"
                   >: Neha Kishankumar Zalavadiya &nbsp; (married) <br />
-                  &nbsp; Khushbu Rajeshbhai &nbsp;&nbsp; Kachhadiya
-                  (engaged)</span
+                  &nbsp; Khushbu Rajeshbhai &nbsp; Kachhadiya (engaged)</span
                 >
               </div>
             </div>
@@ -1226,30 +1181,27 @@
         <div class="portrait-grid">
           <figure class="portrait-card">
             <div class="portrait-frame">
-              <!-- <img -->
-              <!-- src="WhatsApp Image 2026-10-12 at 11.23.53.jpeg"
-                alt="Profile photo"
-                class="slideshow-photo active" -->
-              <!-- /> -->
               <img
-                src="img1.jpeg"
+                src="WhatsApp Image 2026-10-12 at 11.23.53.jpeg"
                 alt="Profile photo"
-                class="slideshow-photo"
-              />
-              <img
-                src="img2.jpeg"
-                alt="Profile photo"
-                class="slideshow-photo"
-              />
-              <img
-                src="img3.jpeg"
-                alt="Profile photo"
-                class="slideshow-photo"
               />
             </div>
+            <!-- <figcaption class="portrait-caption" contenteditable="false">
+              Simple • Genuine • Me
+            </figcaption> -->
+          </figure>
+          <figure class="portrait-card">
+            <div class="portrait-frame">
+              <img
+                src="WhatsApp Image 2026-10-12 at 11.23.54.jpeg"
+                alt="Profile photo"
+              />
+            </div>
+            <!-- <figcaption class="portrait-caption" contenteditable="false">
+              A Moment to Remember
+            </figcaption> -->
           </figure>
         </div>
-
         <div class="gallery-ornament"></div>
         <div class="gallery-footer" contenteditable="false">
           With blessings • A new beginning
@@ -1330,28 +1282,6 @@
           card.style.animation =
             "galleryReveal 1s cubic-bezier(.2,.75,.25,1) both,photoFloat 4.8s ease-in-out 1s infinite";
         });
-      });
-
-      document.querySelectorAll(".portrait-frame").forEach((frame) => {
-        const photos = frame.querySelectorAll("img.slideshow-photo");
-
-        if (photos.length < 2) return;
-
-        let currentIndex = 0;
-
-        // Show the first photo initially
-        photos.forEach((photo, index) => {
-          photo.classList.toggle("active", index === 0);
-        });
-
-        // Change photo every 2 seconds
-        window.setInterval(() => {
-          photos[currentIndex].classList.remove("active");
-
-          currentIndex = (currentIndex + 1) % photos.length;
-
-          photos[currentIndex].classList.add("active");
-        }, 2000);
       });
     </script>
   </body>
