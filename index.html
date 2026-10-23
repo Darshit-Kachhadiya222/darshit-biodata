@@ -977,6 +977,17 @@
           object-fit: cover;
           margin-top: 10px;
         }
+        /* Smooth photo transition */
+        #galleryPhoto1,
+        #galleryPhoto2 {
+          opacity: 1;
+          transition: opacity 0.7s ease-in-out;
+        }
+
+        #galleryPhoto1.fade-out,
+        #galleryPhoto2.fade-out {
+          opacity: 0;
+        }
       }
     </style>
   </head>
@@ -1303,13 +1314,31 @@
         }
 
         let index = 0;
+        const changeInterval = 4500; // Change every 2.5 seconds
+        const fadeDuration = 700; // Fade duration: 0.7 seconds
 
         setInterval(() => {
-          index = (index + 1) % photos.length;
+          // Fade out both photos
+          photo1.classList.add("fade-out");
+          photo2.classList.add("fade-out");
 
-          photo1.src = photos[index];
-          photo2.src = photos[(index + 1) % photos.length];
-        }, 3000);
+          setTimeout(() => {
+            // Change images after fading out
+            index = (index + 1) % photos.length;
+
+            photo1.src = photos[index];
+            photo2.src = photos[(index + 1) % photos.length];
+
+            // Fade images back in after they load
+            Promise.all([
+              photo1.decode().catch(() => {}),
+              photo2.decode().catch(() => {}),
+            ]).then(() => {
+              photo1.classList.remove("fade-out");
+              photo2.classList.remove("fade-out");
+            });
+          }, fadeDuration);
+        }, changeInterval);
       })();
     </script>
   </body>
