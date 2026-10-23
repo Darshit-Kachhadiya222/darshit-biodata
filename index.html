@@ -1184,10 +1184,7 @@
         <div class="portrait-grid">
           <figure class="portrait-card">
             <div class="portrait-frame">
-              <img
-                src="WhatsApp Image 2026-10-12 at 11.23.53.jpeg"
-                alt="Profile photo"
-              />
+              <img id="galleryPhoto1" src="img1.jpeg" alt="Profile photo" />
             </div>
             <!-- <figcaption class="portrait-caption" contenteditable="false">
               Simple • Genuine • Me
@@ -1195,7 +1192,7 @@
           </figure>
           <figure class="portrait-card">
             <div class="portrait-frame">
-              <img src="img1.jpeg" alt="Profile photo" />
+              <img id="galleryPhoto2" src="img2.jpeg" alt="Profile photo" />
             </div>
             <!-- <figcaption class="portrait-caption" contenteditable="false">
               A Moment to Remember
@@ -1210,22 +1207,24 @@
     </section>
 
     <script>
-      const input = document.getElementById("photoInput"),
-        img = document.getElementById("profilePhoto"),
-        placeholder = document.getElementById("photoPlaceholder");
-      let photoData = "";
-      input.addEventListener("change", (e) => {
-        const f = e.target.files && e.target.files[0];
-        if (!f) return;
-        const r = new FileReader();
-        r.onload = (x) => {
-          photoData = x.target.result;
-          img.src = photoData;
-          img.style.display = "block";
-          placeholder.style.display = "none";
-        };
-        r.readAsDataURL(f);
-      });
+      const input = document.getElementById("photoInput");
+      const img = document.getElementById("profilePhoto");
+      const placeholder = document.getElementById("photoPlaceholder");
+      const photoData = "";
+      if (input && img && placeholder) {
+        input.addEventListener("change", (e) => {
+          const f = e.target.files && e.target.files[0];
+          if (!f) return;
+          const r = new FileReader();
+          r.onload = (x) => {
+            photoData = x.target.result;
+            img.src = photoData;
+            img.style.display = "block";
+            placeholder.style.display = "none";
+          };
+          r.readAsDataURL(f);
+        });
+      }
       function saveHtml() {
         const clone = document.documentElement.cloneNode(true);
         const a = [...document.querySelectorAll("[contenteditable=true]")],
@@ -1283,6 +1282,35 @@
             "galleryReveal 1s cubic-bezier(.2,.75,.25,1) both,photoFloat 4.8s ease-in-out 1s infinite";
         });
       });
+
+      // Automatically change both gallery photos every second
+      (() => {
+        const photos = [
+          "img1.jpeg",
+          "img2.jpeg",
+          "img3.jpeg",
+          "img4.jpeg",
+          "img5.jpeg",
+          "img6.jpeg",
+        ];
+
+        const photo1 = document.getElementById("galleryPhoto1");
+        const photo2 = document.getElementById("galleryPhoto2");
+
+        if (!photo1 || !photo2) {
+          console.error("Gallery images not found. Check their HTML IDs.");
+          return;
+        }
+
+        let index = 0;
+
+        setInterval(() => {
+          index = (index + 1) % photos.length;
+
+          photo1.src = photos[index];
+          photo2.src = photos[(index + 1) % photos.length];
+        }, 3000);
+      })();
     </script>
   </body>
 </html>
