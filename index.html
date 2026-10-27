@@ -1314,31 +1314,58 @@
         }
 
         let index = 0;
-        const changeInterval = 4500; // Change every 2.5 seconds
+        const changeInterval = 3000; // Change every 2.5 seconds
         const fadeDuration = 700; // Fade duration: 0.7 seconds
 
+        // Change first image every 6 seconds
         setInterval(() => {
-          // Fade out both photos
           photo1.classList.add("fade-out");
+
+          setTimeout(() => {
+            index = (index + 1) % photos.length;
+            photo1.src = photos[index];
+
+            photo1
+              .decode()
+              .catch(() => {})
+              .finally(() => {
+                photo1.classList.remove("fade-out");
+              });
+          }, fadeDuration);
+        }, 4000);
+
+        // Change second image every 6 seconds, starting after 3 seconds
+        setTimeout(() => {
+          setInterval(() => {
+            photo2.classList.add("fade-out");
+
+            setTimeout(() => {
+              index = (index + 1) % photos.length;
+              photo2.src = photos[index];
+
+              photo2
+                .decode()
+                .catch(() => {})
+                .finally(() => {
+                  photo2.classList.remove("fade-out");
+                });
+            }, fadeDuration);
+          }, 4000);
+
           photo2.classList.add("fade-out");
 
           setTimeout(() => {
-            // Change images after fading out
             index = (index + 1) % photos.length;
+            photo2.src = photos[index];
 
-            photo1.src = photos[index];
-            photo2.src = photos[(index + 1) % photos.length];
-
-            // Fade images back in after they load
-            Promise.all([
-              photo1.decode().catch(() => {}),
-              photo2.decode().catch(() => {}),
-            ]).then(() => {
-              photo1.classList.remove("fade-out");
-              photo2.classList.remove("fade-out");
-            });
+            photo2
+              .decode()
+              .catch(() => {})
+              .finally(() => {
+                photo2.classList.remove("fade-out");
+              });
           }, fadeDuration);
-        }, changeInterval);
+        }, 2000);
       })();
     </script>
   </body>
